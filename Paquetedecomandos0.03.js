@@ -1,19 +1,25 @@
 var userCount = 0; // Holds the current user count
 var maxUsers = 80;  // Set this to the maximum users you want
+var version = "Paquete de comandos 0.06.";
 
 function onLoad() {
 	print("Bienvenido al script Paquetedecomandos.js 0.03!");
 	print("Para ver los comandos pon /Mostrarcomandos");
+	print("Para la ejecutacion correcta de los comandos por favor escribelos tal cual como se te muestra.");
+	Users.local(function(userobj) {
+  		userCount++;
+	});
+}
+
+function onHelp(userobj) {
+	if(userobj.level >= 1) {
+		print(userobj, "/Fijarlimiteusuarios <cantidad> [Pertenece al script Paquetedecomandos0.06.js!]");
+		print(userobj, "/Warn <id>-<razon> (Advertir a un usuario (A las tres advertencias un Kick!)) [Pertenece al script Paquetedecomandos0.06.js!]");
+	}
+	print(userobj, "/Version [Pertenece al script Paquetedecomandos0.06.js!]");
 }
 
 function onCommand(userobj, command, target, args) {
-	if(command == "Mostrarcomandos") {
-		if(userobj.level >= 1) {
-			print(userobj, "/Fijarlimiteusuarios <cantidad>");
-			print(userobj, "/Warn <id>-<razon> (Advertir a un usuario (A las tres advertencias un Kick!))");
-		}
-		print(userobj, "/Version");	
-	}
 	if(command.substr(0, 20) == "Fijarlimiteusuarios ") {
 		if(userobj.level >= 1) {
 			maxUsers = parseInt(command.substr(20));	
